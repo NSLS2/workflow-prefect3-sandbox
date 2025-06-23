@@ -1,0 +1,39 @@
+name: docker
+prefect-version: 3.6.0
+
+build:
+  - prefect_docker.deployments.steps.build_docker_image:
+      requires: prefect-docker>0.6.0
+      image_name: ghcr.io/junaishima/pixi-container-tests
+      tag: main
+      dockerfile: Dockerfile
+
+push:
+  - prefect_docker.deployments.steps.push_docker_image:
+      requires: prefect-docker>0.6.0
+      image_name: ghcr.io/junaishima/pixi-container-tests
+      tag: main
+      credentials:
+        "{{ prefect.blocks.docker-registry-credentials.ghcr-jaishima }}"
+
+pull:
+  - prefect.deployments.steps.git_clone:
+      repository: https://github.com/JunAishima/pixi-container-tests.git
+      branch: main
+      access_token:
+        "{{
+        prefect.blocks.secret.deployment-pixicontainertests-workflow-end-of-run-workflow-repo-token
+        }}"
+
+deployments:
+  - name: testjun-docker
+    version: null
+    description: Deploy the updated Docker image
+    entrypoint: end_of_run_workflow.py:end_of_run_workflow
+    parameters: {}
+    schedule: {}
+    work_pool:
+      job_variables:
+        image: ghcr.io/junaishima/pixi-container-tests:main
+        network_mode: host
+      name: pixi-container-tests1
