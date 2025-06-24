@@ -12,6 +12,8 @@ build:
       image_name: ghcr.io/junaishima/pixi-container-tests
       tag: "{{ get-commit-hash.stdout }}"
       dockerfile: Dockerfile
+      additional_tags:
+          - main
 
 push:
   - prefect_docker.deployments.steps.push_docker_image:
@@ -22,6 +24,8 @@ push:
         "{{
         prefect.blocks.docker-registry-credentials.ghcr-jaishima-pixi-container-tests
         }}"
+      additional_tags:
+          - main
 
 pull:
   - prefect.deployments.steps.git_clone:
