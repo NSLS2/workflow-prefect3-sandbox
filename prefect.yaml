@@ -14,7 +14,7 @@ push:
       image_name: ghcr.io/junaishima/pixi-container-tests
       tag: main
       credentials:
-        "{{ prefect.blocks.docker-registry-credentials.ghcr-jaishima }}"
+        "{{ prefect.blocks.docker-registry-credentials.ghcr-jaishima-pixi-container-tests }}"
 
 pull:
   - prefect.deployments.steps.git_clone:
