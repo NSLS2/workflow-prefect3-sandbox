@@ -26,7 +26,7 @@ pull:
         }}"
 
 deployments:
-  - name: testjun-docker
+  - name: test-pixi-container-tests-deploy
     version: null
     description: Deploy the updated Docker image
     entrypoint: end_of_run_workflow.py:end_of_run_workflow
