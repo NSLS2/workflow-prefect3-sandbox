@@ -2,19 +2,25 @@ name: docker
 prefect-version: 3.6.0
 
 build:
+  - prefect.deployments.steps.run_shell_script:
+      id: get-commit-hash
+      script: git rev-parse --short HEAD
+      stream_output: false
   - prefect_docker.deployments.steps.build_docker_image:
       requires: prefect-docker>0.6.0
-      image_name: junaishima/pixi-container-tests
-      tag: main
+      image_name: ghcr.io/junaishima/pixi-container-tests
+      tag: "{{ get-commit-hash.stdout }}"
       dockerfile: Dockerfile
 
 push:
   - prefect_docker.deployments.steps.push_docker_image:
       requires: prefect-docker>0.6.0
-      image_name: junaishima/pixi-container-tests
-      tag: main
+      image_name: ghcr.io/junaishima/pixi-container-tests
+      tag: "{{ get-commit-hash.stdout }}"
       credentials:
-        "{{ prefect.blocks.docker-registry-credentials.ghcr-jaishima-pixi-container-tests }}"
+        "{{
+        prefect.blocks.docker-registry-credentials.ghcr-jaishima-pixi-container-tests
+        }}"
 
 pull:
   - prefect.deployments.steps.git_clone:
@@ -34,6 +40,6 @@ deployments:
     schedule: {}
     work_pool:
       job_variables:
-        image: junaishima/pixi-container-tests
+        image: ghcr.io/junaishima/pixi-container-tests:main
         network_mode: host
       name: pixi-container-tests1
