@@ -7,6 +7,7 @@ build:
       script: git rev-parse --short HEAD
       stream_output: false
   - prefect_docker.deployments.steps.build_docker_image:
+      id: build-image
       requires: prefect-docker>0.6.0
       image_name: ghcr.io/junaishima/pixi-container-tests
       tag: "{{ get-commit-hash.stdout }}"
@@ -15,8 +16,8 @@ build:
 push:
   - prefect_docker.deployments.steps.push_docker_image:
       requires: prefect-docker>0.6.0
-      image_name: ghcr.io/junaishima/pixi-container-tests
-      tag: "{{ get-commit-hash.stdout }}"
+      image_name: "{{ build-image.image_name }}"
+      tag: "{{ build-image.tag }}"
       credentials:
         "{{
         prefect.blocks.docker-registry-credentials.ghcr-jaishima-pixi-container-tests
