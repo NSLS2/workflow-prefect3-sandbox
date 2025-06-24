@@ -4,14 +4,14 @@ prefect-version: 3.6.0
 build:
   - prefect_docker.deployments.steps.build_docker_image:
       requires: prefect-docker>0.6.0
-      image_name: ghcr.io/junaishima/pixi-container-tests
+      image_name: junaishima/pixi-container-tests
       tag: main
       dockerfile: Dockerfile
 
 push:
   - prefect_docker.deployments.steps.push_docker_image:
       requires: prefect-docker>0.6.0
-      image_name: ghcr.io/junaishima/pixi-container-tests
+      image_name: junaishima/pixi-container-tests
       tag: main
       credentials:
         "{{ prefect.blocks.docker-registry-credentials.ghcr-jaishima-pixi-container-tests }}"
@@ -34,6 +34,6 @@ deployments:
     schedule: {}
     work_pool:
       job_variables:
-        image: ghcr.io/junaishima/pixi-container-tests:main
+        image: junaishima/pixi-container-tests
         network_mode: host
       name: pixi-container-tests1
