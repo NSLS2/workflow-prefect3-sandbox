@@ -13,11 +13,13 @@ logger = get_run_logger()
 
 @task
 def log_completion():
+    logger = get_run_logger()
     logger.info("Complete")
 
 
 @flow
 def end_of_run_workflow(stop_doc):
+    logger = get_run_logger()
     # tiled_client = from_profile("nsls2")
     tiled_client = from_uri("https://tiled-demo.blueskyproject.io")
     logger.info("testing, adding something new to the end_of_run_workflow")
@@ -39,10 +41,10 @@ if __name__ == "__main__":
     #    image="ghcr.io/junaishima/pixi-container-tests:main",
     #    build=False,
     # )
-    logger.info("end of run workflow")
+    print("end of run workflow")  # noqa: T201
     args = sys.argv
-    logger.info(f"{len(args)}, {args}")
+    print(f"{len(args)}, {args}")  # noqa: T201
     end_of_run_workflow({"stop_doc": args[1]})
     #    import tiled
     sleep(100)
-    logger.info("after sleep")
+    print("after sleep")  # noqa: T201
