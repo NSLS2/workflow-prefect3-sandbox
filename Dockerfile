@@ -1,5 +1,7 @@
 FROM ghcr.io/prefix-dev/pixi:latest
 
+ENV TZ="America/New York"
+
 RUN apt-get -y update && \
     apt-get -y install git
 
