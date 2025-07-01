@@ -8,8 +8,6 @@ from tiled.client import from_uri
 
 from data_validation import general_data_validation
 
-logger = get_run_logger()
-
 
 @task
 def log_completion():
