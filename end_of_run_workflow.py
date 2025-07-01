@@ -8,10 +8,11 @@ from tiled.client import from_uri
 
 from data_validation import general_data_validation
 
+logger = get_run_logger()
+
 
 @task
 def log_completion():
-    logger = get_run_logger()
     logger.info("Complete")
 
 
@@ -19,10 +20,10 @@ def log_completion():
 def end_of_run_workflow(stop_doc):
     # tiled_client = from_profile("nsls2")
     tiled_client = from_uri("https://tiled-demo.blueskyproject.io")
-    print("testing, adding something new to the end_of_run_workflow")  # noqa: T201
-    print(f"stop doc: {stop_doc}")  # noqa: T201
+    logger.info("testing, adding something new to the end_of_run_workflow")
+    logger.info(f"stop doc: {stop_doc}")
     uid = stop_doc["run_start"]
-    print(f"tiled info: {tiled_client['fxi']['raw'][uid]}")  # noqa: T201
+    logger.info(f"tiled info: {tiled_client['fxi']['raw'][uid]}")
     return
     general_data_validation(uid)
     # export(uid)
@@ -38,10 +39,10 @@ if __name__ == "__main__":
     #    image="ghcr.io/junaishima/pixi-container-tests:main",
     #    build=False,
     # )
-    print("end of run workflow")  # noqa: T201
+    logger.info("end of run workflow")
     args = sys.argv
-    print(len(args), args)  # noqa: T201
+    logger.info(f"{len(args)}, {args}")
     end_of_run_workflow({"stop_doc": args[1]})
     #    import tiled
     sleep(100)
-    print("after sleep")  # noqa: T201
+    logger.info("after sleep")
