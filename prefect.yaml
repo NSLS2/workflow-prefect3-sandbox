@@ -29,7 +29,7 @@ push:
 
 pull:
   - prefect.deployments.steps.git_clone:
-      repository: https://github.com/JunAishima/workflow-prefect3-sandbox.git
+      repository: https://github.com/NSLS2/workflow-prefect3-sandbox.git
       branch: main
       access_token:
         "{{
