@@ -31,10 +31,6 @@ pull:
   - prefect.deployments.steps.git_clone:
       repository: https://github.com/NSLS2/workflow-prefect3-sandbox.git
       branch: main
-      access_token:
-        "{{
-        prefect.blocks.secret.deployment-workflowprefect3sandbox-end-of-run-workflow-repo-token
-        }}"
 
 deployments:
   - name: test-workflow-prefect3-sandbox-deploy
