@@ -32,18 +32,9 @@ def end_of_run_workflow(stop_doc):
 
 
 if __name__ == "__main__":
-    # below is a proof of concept that a deployment can be made from inside a running program
-    # end_of_run_workflow.deploy(
-    #    name="end_of_run_workflow_deployment",
-    #    work_pool_name="pixi-container-tests1",
-    #    parameters={"stop_doc": {}},
-    #    image="ghcr.io/junaishima/pixi-container-tests:main",
-    #    build=False,
-    # )
     print("end of run workflow")  # noqa: T201
     args = sys.argv
     print(f"{len(args)}, {args}")  # noqa: T201
     end_of_run_workflow({"stop_doc": args[1]})
-    #    import tiled
     sleep(100)
     print("after sleep")  # noqa: T201
