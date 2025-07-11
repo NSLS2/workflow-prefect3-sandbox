@@ -43,4 +43,4 @@ deployments:
       job_variables:
         image: ghcr.io/nsls2/workflow-prefect3-sandbox:main
         network_mode: host
-      name: workflow-prefect3-sandbox1
+      name: tst-work-pool-docker
