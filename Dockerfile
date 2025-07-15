@@ -14,11 +14,11 @@ RUN pixi install --locked
 RUN pixi shell-hook -s bash > /shell-hook
 
 ENV PYTHONUNBUFFERED=1
-# either here or when docker run is done, make sure that the TILED_SITE_PROFILES directory on disk is mounted to the container. this will be necessary for data access. we will also need to allow outside network access from the container to get data from tiled
 
 COPY test.py .
 
-#ENV TILED_API_KEY=""
+ENV TILED_API_KEY=""
+ENV TILED_SITE_PROFILES="/etc/tiled/profiles"
 RUN mkdir /etc/tiled
 RUN /bin/bash /shell-hook
 
